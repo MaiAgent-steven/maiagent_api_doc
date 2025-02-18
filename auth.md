@@ -97,7 +97,7 @@ try {
 
 ---
 
-## 新增 FAQ
+## 建立新 FAQ
 
 ```
 POST /api/v1/chatbots/{chatbotPk}/faqs/
@@ -741,7 +741,7 @@ try {
 
 ---
 
-## 上傳新文件到知識庫
+## 上傳新知識庫文件
 
 ```
 POST /api/v1/chatbots/{chatbotPk}/files/
@@ -872,7 +872,7 @@ try {
 
 ---
 
-## 取得知識庫內特定文件
+## 取得特定知識庫文件
 
 ```
 GET /api/v1/chatbots/{chatbotPk}/files/{id}/
@@ -971,7 +971,7 @@ try {
 
 ---
 
-## 更新知識庫內特定文件
+## 更新知識庫文件
 
 ```
 PUT /api/v1/chatbots/{chatbotPk}/files/{id}/
@@ -1095,7 +1095,7 @@ try {
 
 ---
 
-## 刪除知識庫內特定文件
+## 刪除知識庫文件
 
 ```
 DELETE /api/v1/chatbots/{chatbotPk}/files/{id}/
@@ -1318,7 +1318,7 @@ try {
 
 ---
 
-## 搜尋測試
+## FAQ 搜尋測試（依使用需求）
 
 ```
 POST /api/v1/chatbots/{id}/search/
