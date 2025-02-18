@@ -1,11 +1,7 @@
-# Summary
-
-* [介紹](README.md)
-
-* [認證與授權](auth.md)
-* [使用者與組織管理](user-org.md)
-* [聊天機器人核心功能](chatbot-core.md)
-* [知識庫管理](knowledge.md)
-* [對話管理](conversation.md)
-* [通訊渠道整合](channels.md)
-* [系統設定](system.md)
+# 目錄
+* [首頁](README.md)
+* [AI 助理管理](ai-助理管理.md)
+* [附件與檔案](附件和檔案.md)
+* [知識庫](知識庫.md)
+* [對話與訊息](對話和訊息.md)
+* [組織與成員管理](組織和成員管理.md)
