@@ -1,165 +1,10 @@
-# 對話與訊息
+# 知識庫
 
-## 產生對話回應
-
-```
-POST /api/v1/chatbots/{chatbotId}/completions/
-```
-
-### 程式碼範例
-
-```shell
-# 呼叫 API
-curl -X POST "https://api.maiagent.com/api/v1/chatbots/{chatbotId}/completions/" \
-  -H "Authorization: Api-Key YOUR_API_KEY"\
-```
-
-```javascript
-const axios = require('axios');
-
-// 準備請求資料
-const data = {}; 
-
-// 準備請求設定
-const config = {
-  headers: {
-    'Authorization': 'Api-Key YOUR_API_KEY',
-    'Content-Type': 'application/json'
-  }
-};
-
-axios.post("https://api.maiagent.com/api/v1/chatbots/{chatbotId}/completions/", data, config)
-  .then(response => {
-    console.log('回應:', response.data);
-  })
-  .catch(error => {
-    console.error('錯誤:', error.response?.data || error.message);
-  });
-```
-
-```python
-import requests
-import json
-
-url = "https://api.maiagent.com/api/v1/chatbots/{chatbotId}/completions/"
-headers = {
-    "Authorization": "Api-Key YOUR_API_KEY",
-    "Content-Type": "application/json"
-}
-data = {}
-
-response = requests.post(url, json=data, headers=headers)
-try:
-    print("回應:", response.json())
-except Exception as e:
-    print("錯誤:", e)
-```
-
-```php
-<?php
-require 'vendor/autoload.php';
-
-$client = new GuzzleHttpClient();
-
-try {
-    $response = $client->post("https://api.maiagent.com/api/v1/chatbots/{chatbotId}/completions/", [
-        'headers' => [
-            'Authorization' => 'Api-Key YOUR_API_KEY',
-            'Content-Type' => 'application/json'
-        ],
-        'json' => {}
-    ]);
-    $data = json_decode($response->getBody(), true);
-    print_r($data);
-} catch (Exception $e) {
-    echo '錯誤: ' . $e->getMessage();
-}
-?>
-```
-
-
-### 參數
-
-| 參數名稱 | 必填 | 類型 | 說明 |
-| --- | --- | --- | --- |
-| chatbotId | 是 | string |  |
-
-### 狀態碼
-
-| 狀態碼 | 說明 |
-| --- | --- |
-| 200 | No response body |
-
----
-
-## 取得對話記錄
+## 取得 FAQ 列表
 
 ```
-GET /api/v1/chatbots/{chatbotPk}/records/
+GET /api/v1/chatbots/{chatbotPk}/faqs/
 ```
-
-### 程式碼範例
-
-```shell
-# 呼叫 API
-curl -X GET "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/records/" \
-  -H "Authorization: Api-Key YOUR_API_KEY"\
-```
-
-```javascript
-const axios = require('axios');
-
-// 準備請求設定
-const config = {
-  headers: {
-    'Authorization': 'Api-Key YOUR_API_KEY'
-  }
-};
-
-axios.get("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/records/", config)
-  .then(response => {
-    console.log('回應:', response.data);
-  })
-  .catch(error => {
-    console.error('錯誤:', error.response?.data || error.message);
-  });
-```
-
-```python
-import requests
-
-url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/records/"
-headers = {
-    "Authorization": "Api-Key YOUR_API_KEY"
-}
-
-response = requests.get(url, headers=headers)
-try:
-    print("回應:", response.json())
-except Exception as e:
-    print("錯誤:", e)
-```
-
-```php
-<?php
-require 'vendor/autoload.php';
-
-$client = new GuzzleHttpClient();
-
-try {
-    $response = $client->get("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/records/", [
-        'headers' => [
-            'Authorization' => 'Api-Key YOUR_API_KEY'
-        ]
-    ]);
-    $data = json_decode($response->getBody(), true);
-    print_r($data);
-} catch (Exception $e) {
-    echo '錯誤: ' . $e->getMessage();
-}
-?>
-```
-
 
 ### 參數
 
@@ -169,53 +14,11 @@ try {
 | page | 否 | integer | A page number within the paginated result set. |
 | pageSize | 否 | integer | Number of results to return per page. |
 
-### 回應內容
-
-```json
-{
-  "count": 0,
-  "next": "example_string",
-  "previous": "example_string",
-  "results": [
-    {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "inputMessage": "example_string",
-      "condenseMessage": "example_string",
-      "outputMessage": "example_string",
-      "context": "example_string",
-      "faithfulnessScore": 0,
-      "displayFaithfulnessScore": "example_string",
-      "answerRelevancyScore": 0,
-      "displayAnswerRelevancyScore": "example_string",
-      "contextPrecisionScore": 0,
-      "displayContextPrecisionScore": "example_string",
-      "answerCorrectnessScore": 0,
-      "displayAnswerCorrectnessScore": "example_string",
-      "answerSimilarityScore": 0,
-      "displayAnswerSimilarityScore": "example_string",
-      "contextRecallScore": 0,
-      "displayContextRecallScore": "example_string",
-      "replyTime": "example_string",
-      "createdAt": "2024-02-18T13:45:30.000Z",
-      "error": "example_string"
-    }
-  ]
-}
-```
-
----
-
-## 匯出對話記錄
-
-```
-GET /api/v1/chatbots/{chatbotPk}/records/export-excel/
-```
-
 ### 程式碼範例
 
 ```shell
 # 呼叫 API
-curl -X GET "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/records/export-excel/" \
+curl -X GET "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/" \
   -H "Authorization: Api-Key YOUR_API_KEY"\
 ```
 
@@ -229,7 +32,7 @@ const config = {
   }
 };
 
-axios.get("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/records/export-excel/", config)
+axios.get("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/", config)
   .then(response => {
     console.log('回應:', response.data);
   })
@@ -241,7 +44,7 @@ axios.get("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-4466
 ```python
 import requests
 
-url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/records/export-excel/"
+url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/"
 headers = {
     "Authorization": "Api-Key YOUR_API_KEY"
 }
@@ -260,7 +63,7 @@ require 'vendor/autoload.php';
 $client = new GuzzleHttpClient();
 
 try {
-    $response = $client->get("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/records/export-excel/", [
+    $response = $client->get("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/", [
         'headers' => [
             'Authorization' => 'Api-Key YOUR_API_KEY'
         ]
@@ -273,6 +76,32 @@ try {
 ?>
 ```
 
+
+### 回應內容
+
+```json
+{
+  "count": 0,
+  "next": "example_string",
+  "previous": "example_string",
+  "results": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440000",
+      "question": "如何重置密碼？",
+      "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。",
+      "hitsCount": 42
+    }
+  ]
+}
+```
+
+---
+
+## 新增 FAQ
+
+```
+POST /api/v1/chatbots/{chatbotPk}/faqs/
+```
 
 ### 參數
 
@@ -280,46 +109,129 @@ try {
 | --- | --- | --- | --- |
 | chatbotPk | 是 | string | A UUID string identifying this Chatbot ID |
 
-### 回應內容
+### 請求內容
 
 ```json
 {
-  "id": "550e8400-e29b-41d4-a716-446655440000",
-  "inputMessage": "example_string",
-  "condenseMessage": "example_string",
-  "outputMessage": "example_string",
-  "context": "example_string",
-  "faithfulnessScore": 0,
-  "displayFaithfulnessScore": "example_string",
-  "answerRelevancyScore": 0,
-  "displayAnswerRelevancyScore": "example_string",
-  "contextPrecisionScore": 0,
-  "displayContextPrecisionScore": "example_string",
-  "answerCorrectnessScore": 0,
-  "displayAnswerCorrectnessScore": "example_string",
-  "answerSimilarityScore": 0,
-  "displayAnswerSimilarityScore": "example_string",
-  "contextRecallScore": 0,
-  "displayContextRecallScore": "example_string",
-  "replyTime": "example_string",
-  "createdAt": "2024-02-18T13:45:30.000Z",
-  "error": "example_string"
+  "question": "常見問題範例",
+  "answer": "這是一個範例答案"
 }
-```
-
----
-
-## 取得對話列表
-
-```
-GET /api/v1/conversations/
 ```
 
 ### 程式碼範例
 
 ```shell
 # 呼叫 API
-curl -X GET "https://api.maiagent.com/api/v1/conversations/" \
+curl -X POST "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/" \
+  -H "Authorization: Api-Key YOUR_API_KEY"\ \
+  -H "Content-Type: application/json" \
+  -d '{\n  "question": "如何重置密碼？",\n  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。"\n}'
+```
+
+```javascript
+const axios = require('axios');
+
+// 準備請求資料
+const data = {
+  "question": "如何重置密碼？",
+  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。"
+}; 
+
+// 準備請求設定
+const config = {
+  headers: {
+    'Authorization': 'Api-Key YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  }
+};
+
+axios.post("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/", data, config)
+  .then(response => {
+    console.log('回應:', response.data);
+  })
+  .catch(error => {
+    console.error('錯誤:', error.response?.data || error.message);
+  });
+```
+
+```python
+import requests
+import json
+
+url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/"
+headers = {
+    "Authorization": "Api-Key YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+data = {
+  "question": "如何重置密碼？",
+  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。"
+}
+
+response = requests.post(url, json=data, headers=headers)
+try:
+    print("回應:", response.json())
+except Exception as e:
+    print("錯誤:", e)
+```
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+$client = new GuzzleHttpClient();
+
+try {
+    $response = $client->post("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/", [
+        'headers' => [
+            'Authorization' => 'Api-Key YOUR_API_KEY',
+            'Content-Type' => 'application/json'
+        ],
+        'json' => {
+  "question": "如何重置密碼？",
+  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。"
+}
+    ]);
+    $data = json_decode($response->getBody(), true);
+    print_r($data);
+} catch (Exception $e) {
+    echo '錯誤: ' . $e->getMessage();
+}
+?>
+```
+
+
+### 回應內容
+
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "chatbot": "example_string",
+  "question": "如何重置密碼？",
+  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。"
+}
+```
+
+---
+
+## 取得特定 FAQ
+
+```
+GET /api/v1/chatbots/{chatbotPk}/faqs/{id}/
+```
+
+### 參數
+
+| 參數名稱 | 必填 | 類型 | 說明 |
+| --- | --- | --- | --- |
+| chatbotPk | 是 | string | A UUID string identifying this Chatbot ID |
+| id | 是 | string | A UUID string identifying this FAQ. |
+
+### 程式碼範例
+
+```shell
+# 呼叫 API
+curl -X GET "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/550e8400-e29b-41d4-a716-446655440000/" \
   -H "Authorization: Api-Key YOUR_API_KEY"\
 ```
 
@@ -333,7 +245,7 @@ const config = {
   }
 };
 
-axios.get("https://api.maiagent.com/api/v1/conversations/", config)
+axios.get("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/550e8400-e29b-41d4-a716-446655440000/", config)
   .then(response => {
     console.log('回應:', response.data);
   })
@@ -345,7 +257,7 @@ axios.get("https://api.maiagent.com/api/v1/conversations/", config)
 ```python
 import requests
 
-url = "https://api.maiagent.com/api/v1/conversations/"
+url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/550e8400-e29b-41d4-a716-446655440000/"
 headers = {
     "Authorization": "Api-Key YOUR_API_KEY"
 }
@@ -364,7 +276,7 @@ require 'vendor/autoload.php';
 $client = new GuzzleHttpClient();
 
 try {
-    $response = $client->get("https://api.maiagent.com/api/v1/conversations/", [
+    $response = $client->get("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/550e8400-e29b-41d4-a716-446655440000/", [
         'headers' => [
             'Authorization' => 'Api-Key YOUR_API_KEY'
         ]
@@ -378,115 +290,155 @@ try {
 ```
 
 
-### 參數
-
-| 參數名稱 | 必填 | 類型 | 說明 |
-| --- | --- | --- | --- |
-| cursor | 否 | string | The pagination cursor value. |
-| inbox | 否 | string |  |
-| pageSize | 否 | integer | Number of results to return per page. |
-
 ### 回應內容
 
 ```json
 {
-  "next": "example_string",
-  "previous": "example_string",
-  "results": [
-    {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "contact": {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "name": "客服助理",
-        "avatar": "example_string",
-        "createdAt": "2024-02-18T13:45:30.000Z"
-      },
-      "inbox": {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "name": "客服助理",
-        "channelType": null,
-        "unreadConversationsCount": 0
-      },
-      "title": "example_string",
-      "lastMessage": {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "conversation": "example_string",
-        "sender": {
-          "id": "550e8400-e29b-41d4-a716-446655440000",
-          "name": "客服助理",
-          "avatar": "example_string"
-        },
-        "type": "example_string",
-        "content": "example_string",
-        "feedback": null,
-        "createdAt": "2024-02-18T13:45:30.000Z",
-        "attachments": [
-          {
-            "id": "550e8400-e29b-41d4-a716-446655440000",
-            "type": null,
-            "filename": "example.pdf",
-            "file": "example.pdf"
-          }
-        ],
-        "citations": [
-          {
-            "id": "550e8400-e29b-41d4-a716-446655440000",
-            "filename": "example.pdf",
-            "file": "example.pdf",
-            "fileType": "example_string",
-            "size": 0,
-            "status": null,
-            "chatbotFileContent": "example_string",
-            "parser": {
-              "id": "550e8400-e29b-41d4-a716-446655440000",
-              "name": "客服助理",
-              "provider": "example_string",
-              "priority": 0
-            },
-            "createdAt": "2024-02-18T13:45:30.000Z"
-          }
-        ],
-        "citationNodes": [
-          {
-            "chatbotTextNode": {
-              "id": "550e8400-e29b-41d4-a716-446655440000",
-              "charactersCount": 0,
-              "hitsCount": 42,
-              "text": "example_string",
-              "updatedAt": "example_string",
-              "filename": "example.pdf"
-            },
-            "score": 0,
-            "displayScore": "example_string"
-          }
-        ]
-      },
-      "lastMessageCreatedAt": "example_string",
-      "unreadMessagesCount": 0,
-      "autoReplyEnabled": false,
-      "isAutoReplyNow": "example_string",
-      "lastReadAt": "example_string",
-      "createdAt": "2024-02-18T13:45:30.000Z",
-      "isGroupChat": "example_string",
-      "enableGroupMention": "example_string"
-    }
-  ]
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "question": "如何重置密碼？",
+  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。",
+  "hitsCount": 42
 }
 ```
 
 ---
 
-## 建立對話
+## 更新 FAQ
 
 ```
-POST /api/v1/conversations/
+PUT /api/v1/chatbots/{chatbotPk}/faqs/{id}/
+```
+
+### 參數
+
+| 參數名稱 | 必填 | 類型 | 說明 |
+| --- | --- | --- | --- |
+| chatbotPk | 是 | string | A UUID string identifying this Chatbot ID |
+| id | 是 | string | A UUID string identifying this FAQ. |
+
+### 請求內容
+
+```json
+{
+  "question": "常見問題範例",
+  "answer": "這是一個範例答案"
+}
 ```
 
 ### 程式碼範例
 
 ```shell
 # 呼叫 API
-curl -X POST "https://api.maiagent.com/api/v1/conversations/" \
+curl -X PUT "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/550e8400-e29b-41d4-a716-446655440000/" \
+  -H "Authorization: Api-Key YOUR_API_KEY"\ \
+  -H "Content-Type: application/json" \
+  -d '{\n  "question": "如何重置密碼？",\n  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。"\n}'
+```
+
+```javascript
+const axios = require('axios');
+
+// 準備請求資料
+const data = {
+  "question": "如何重置密碼？",
+  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。"
+}; 
+
+// 準備請求設定
+const config = {
+  headers: {
+    'Authorization': 'Api-Key YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  }
+};
+
+axios.put("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/550e8400-e29b-41d4-a716-446655440000/", data, config)
+  .then(response => {
+    console.log('回應:', response.data);
+  })
+  .catch(error => {
+    console.error('錯誤:', error.response?.data || error.message);
+  });
+```
+
+```python
+import requests
+import json
+
+url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/550e8400-e29b-41d4-a716-446655440000/"
+headers = {
+    "Authorization": "Api-Key YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+data = {
+  "question": "如何重置密碼？",
+  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。"
+}
+
+response = requests.put(url, json=data, headers=headers)
+try:
+    print("回應:", response.json())
+except Exception as e:
+    print("錯誤:", e)
+```
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+$client = new GuzzleHttpClient();
+
+try {
+    $response = $client->put("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/550e8400-e29b-41d4-a716-446655440000/", [
+        'headers' => [
+            'Authorization' => 'Api-Key YOUR_API_KEY',
+            'Content-Type' => 'application/json'
+        ],
+        'json' => {
+  "question": "如何重置密碼？",
+  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。"
+}
+    ]);
+    $data = json_decode($response->getBody(), true);
+    print_r($data);
+} catch (Exception $e) {
+    echo '錯誤: ' . $e->getMessage();
+}
+?>
+```
+
+
+### 回應內容
+
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "question": "如何重置密碼？",
+  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。",
+  "hitsCount": 42
+}
+```
+
+---
+
+## 刪除 FAQ
+
+```
+DELETE /api/v1/chatbots/{chatbotPk}/faqs/{id}/
+```
+
+### 參數
+
+| 參數名稱 | 必填 | 類型 | 說明 |
+| --- | --- | --- | --- |
+| chatbotPk | 是 | string | A UUID string identifying this Chatbot ID |
+| id | 是 | string | A UUID string identifying this FAQ. |
+
+### 程式碼範例
+
+```shell
+# 呼叫 API
+curl -X DELETE "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/550e8400-e29b-41d4-a716-446655440000/" \
   -H "Authorization: Api-Key YOUR_API_KEY"\
 ```
 
@@ -504,7 +456,7 @@ const config = {
   }
 };
 
-axios.post("https://api.maiagent.com/api/v1/conversations/", data, config)
+axios.delete("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/550e8400-e29b-41d4-a716-446655440000/", data, config)
   .then(response => {
     console.log('回應:', response.data);
   })
@@ -517,14 +469,14 @@ axios.post("https://api.maiagent.com/api/v1/conversations/", data, config)
 import requests
 import json
 
-url = "https://api.maiagent.com/api/v1/conversations/"
+url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/550e8400-e29b-41d4-a716-446655440000/"
 headers = {
     "Authorization": "Api-Key YOUR_API_KEY",
     "Content-Type": "application/json"
 }
 data = {}
 
-response = requests.post(url, json=data, headers=headers)
+response = requests.delete(url, json=data, headers=headers)
 try:
     print("回應:", response.json())
 except Exception as e:
@@ -538,7 +490,7 @@ require 'vendor/autoload.php';
 $client = new GuzzleHttpClient();
 
 try {
-    $response = $client->post("https://api.maiagent.com/api/v1/conversations/", [
+    $response = $client->delete("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/550e8400-e29b-41d4-a716-446655440000/", [
         'headers' => [
             'Authorization' => 'Api-Key YOUR_API_KEY',
             'Content-Type' => 'application/json'
@@ -554,197 +506,66 @@ try {
 ```
 
 
+### 狀態碼
+
+| 狀態碼 | 說明 |
+| --- | --- |
+| 204 | No response body |
+
+---
+
+## 批次刪除 FAQ
+
+```
+POST /api/v1/chatbots/{chatbotPk}/faqs/batch-delete/
+```
+
+### 參數
+
+| 參數名稱 | 必填 | 類型 | 說明 |
+| --- | --- | --- | --- |
+| chatbotPk | 是 | string | A UUID string identifying this Chatbot ID |
+
 ### 請求內容
 
 ```json
 {
-  "id": "550e8400-e29b-41d4-a716-446655440000",
-  "contact": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "name": "客服助理",
-    "avatar": "example_string",
-    "createdAt": "2024-02-18T13:45:30.000Z"
-  },
-  "inbox": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "name": "客服助理",
-    "channelType": null,
-    "unreadConversationsCount": 0
-  },
-  "title": "example_string",
-  "lastMessage": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "conversation": "example_string",
-    "sender": {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "name": "客服助理",
-      "avatar": "example_string"
-    },
-    "type": "example_string",
-    "content": "example_string",
-    "feedback": null,
-    "createdAt": "2024-02-18T13:45:30.000Z",
-    "attachments": [
-      {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "type": null,
-        "filename": "example.pdf",
-        "file": "example.pdf"
-      }
-    ],
-    "citations": [
-      {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "filename": "example.pdf",
-        "file": "example.pdf",
-        "fileType": "example_string",
-        "size": 0,
-        "status": null,
-        "chatbotFileContent": "example_string",
-        "parser": {
-          "id": "550e8400-e29b-41d4-a716-446655440000",
-          "name": "客服助理",
-          "provider": "example_string",
-          "priority": 0
-        },
-        "createdAt": "2024-02-18T13:45:30.000Z"
-      }
-    ],
-    "citationNodes": [
-      {
-        "chatbotTextNode": {
-          "id": "550e8400-e29b-41d4-a716-446655440000",
-          "charactersCount": 0,
-          "hitsCount": 42,
-          "text": "example_string",
-          "updatedAt": "example_string",
-          "filename": "example.pdf"
-        },
-        "score": 0,
-        "displayScore": "example_string"
-      }
-    ]
-  },
-  "lastMessageCreatedAt": "example_string",
-  "unreadMessagesCount": 0,
-  "autoReplyEnabled": false,
-  "isAutoReplyNow": "example_string",
-  "lastReadAt": "example_string",
-  "createdAt": "2024-02-18T13:45:30.000Z",
-  "isGroupChat": "example_string",
-  "enableGroupMention": "example_string"
+  "ids": [
+    "file_id_1",
+    "file_id_2",
+    "file_id_3"
+  ]
 }
-```
-
-### 回應內容
-
-```json
-{
-  "id": "550e8400-e29b-41d4-a716-446655440000",
-  "contact": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "name": "客服助理",
-    "avatar": "example_string",
-    "createdAt": "2024-02-18T13:45:30.000Z"
-  },
-  "inbox": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "name": "客服助理",
-    "channelType": null,
-    "unreadConversationsCount": 0
-  },
-  "title": "example_string",
-  "lastMessage": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "conversation": "example_string",
-    "sender": {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "name": "客服助理",
-      "avatar": "example_string"
-    },
-    "type": "example_string",
-    "content": "example_string",
-    "feedback": null,
-    "createdAt": "2024-02-18T13:45:30.000Z",
-    "attachments": [
-      {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "type": null,
-        "filename": "example.pdf",
-        "file": "example.pdf"
-      }
-    ],
-    "citations": [
-      {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "filename": "example.pdf",
-        "file": "example.pdf",
-        "fileType": "example_string",
-        "size": 0,
-        "status": null,
-        "chatbotFileContent": "example_string",
-        "parser": {
-          "id": "550e8400-e29b-41d4-a716-446655440000",
-          "name": "客服助理",
-          "provider": "example_string",
-          "priority": 0
-        },
-        "createdAt": "2024-02-18T13:45:30.000Z"
-      }
-    ],
-    "citationNodes": [
-      {
-        "chatbotTextNode": {
-          "id": "550e8400-e29b-41d4-a716-446655440000",
-          "charactersCount": 0,
-          "hitsCount": 42,
-          "text": "example_string",
-          "updatedAt": "example_string",
-          "filename": "example.pdf"
-        },
-        "score": 0,
-        "displayScore": "example_string"
-      }
-    ]
-  },
-  "lastMessageCreatedAt": "example_string",
-  "unreadMessagesCount": 0,
-  "autoReplyEnabled": false,
-  "isAutoReplyNow": "example_string",
-  "lastReadAt": "example_string",
-  "createdAt": "2024-02-18T13:45:30.000Z",
-  "isGroupChat": "example_string",
-  "enableGroupMention": "example_string"
-}
-```
-
----
-
-## 取得特定對話
-
-```
-GET /api/v1/conversations/{id}/
 ```
 
 ### 程式碼範例
 
 ```shell
 # 呼叫 API
-curl -X GET "https://api.maiagent.com/api/v1/conversations/550e8400-e29b-41d4-a716-446655440000/" \
-  -H "Authorization: Api-Key YOUR_API_KEY"\
+curl -X POST "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/batch-delete/" \
+  -H "Authorization: Api-Key YOUR_API_KEY"\ \
+  -H "Content-Type: application/json" \
+  -d '{\n  "question": "如何重置密碼？",\n  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。"\n}'
 ```
 
 ```javascript
 const axios = require('axios');
 
+// 準備請求資料
+const data = {
+  "question": "如何重置密碼？",
+  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。"
+}; 
+
 // 準備請求設定
 const config = {
   headers: {
-    'Authorization': 'Api-Key YOUR_API_KEY'
+    'Authorization': 'Api-Key YOUR_API_KEY',
+    'Content-Type': 'application/json'
   }
 };
 
-axios.get("https://api.maiagent.com/api/v1/conversations/550e8400-e29b-41d4-a716-446655440000/", config)
+axios.post("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/batch-delete/", data, config)
   .then(response => {
     console.log('回應:', response.data);
   })
@@ -755,13 +576,19 @@ axios.get("https://api.maiagent.com/api/v1/conversations/550e8400-e29b-41d4-a716
 
 ```python
 import requests
+import json
 
-url = "https://api.maiagent.com/api/v1/conversations/550e8400-e29b-41d4-a716-446655440000/"
+url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/batch-delete/"
 headers = {
-    "Authorization": "Api-Key YOUR_API_KEY"
+    "Authorization": "Api-Key YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+data = {
+  "question": "如何重置密碼？",
+  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。"
 }
 
-response = requests.get(url, headers=headers)
+response = requests.post(url, json=data, headers=headers)
 try:
     print("回應:", response.json())
 except Exception as e:
@@ -775,10 +602,15 @@ require 'vendor/autoload.php';
 $client = new GuzzleHttpClient();
 
 try {
-    $response = $client->get("https://api.maiagent.com/api/v1/conversations/550e8400-e29b-41d4-a716-446655440000/", [
+    $response = $client->post("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/faqs/batch-delete/", [
         'headers' => [
-            'Authorization' => 'Api-Key YOUR_API_KEY'
-        ]
+            'Authorization' => 'Api-Key YOUR_API_KEY',
+            'Content-Type' => 'application/json'
+        ],
+        'json' => {
+  "question": "如何重置密碼？",
+  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。"
+}
     ]);
     $data = json_decode($response->getBody(), true);
     print_r($data);
@@ -788,173 +620,96 @@ try {
 ?>
 ```
 
-
-### 參數
-
-| 參數名稱 | 必填 | 類型 | 說明 |
-| --- | --- | --- | --- |
-| id | 是 | string | A UUID string identifying this 對話. |
 
 ### 回應內容
 
 ```json
 {
   "id": "550e8400-e29b-41d4-a716-446655440000",
-  "contact": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "name": "客服助理",
-    "avatar": "example_string",
-    "createdAt": "2024-02-18T13:45:30.000Z"
-  },
-  "inbox": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "name": "客服助理",
-    "channelType": null,
-    "unreadConversationsCount": 0
-  },
-  "title": "example_string",
-  "lastMessage": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "conversation": "example_string",
-    "sender": {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "name": "客服助理",
-      "avatar": "example_string"
-    },
-    "type": "example_string",
-    "content": "example_string",
-    "feedback": null,
-    "createdAt": "2024-02-18T13:45:30.000Z",
-    "attachments": [
-      {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "type": null,
-        "filename": "example.pdf",
-        "file": "example.pdf"
-      }
-    ],
-    "citations": [
-      {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "filename": "example.pdf",
-        "file": "example.pdf",
-        "fileType": "example_string",
-        "size": 0,
-        "status": null,
-        "chatbotFileContent": "example_string",
-        "parser": {
-          "id": "550e8400-e29b-41d4-a716-446655440000",
-          "name": "客服助理",
-          "provider": "example_string",
-          "priority": 0
-        },
-        "createdAt": "2024-02-18T13:45:30.000Z"
-      }
-    ],
-    "citationNodes": [
-      {
-        "chatbotTextNode": {
-          "id": "550e8400-e29b-41d4-a716-446655440000",
-          "charactersCount": 0,
-          "hitsCount": 42,
-          "text": "example_string",
-          "updatedAt": "example_string",
-          "filename": "example.pdf"
-        },
-        "score": 0,
-        "displayScore": "example_string"
-      }
-    ]
-  },
-  "lastMessageCreatedAt": "example_string",
-  "unreadMessagesCount": 0,
-  "autoReplyEnabled": false,
-  "isAutoReplyNow": "example_string",
-  "lastReadAt": "example_string",
-  "createdAt": "2024-02-18T13:45:30.000Z",
-  "isGroupChat": "example_string",
-  "enableGroupMention": "example_string"
+  "question": "如何重置密碼？",
+  "answer": "您可以點擊登入頁面的「忘記密碼」連結來重置密碼。",
+  "hitsCount": 42
 }
 ```
 
 ---
 
-## 取得訊息列表
+## 取得知識庫文件列表
 
 ```
-GET /api/v1/messages/
+GET /api/v1/chatbots/{chatbotPk}/files/
 ```
-
-### 程式碼範例
-
-```shell
-# 呼叫 API
-curl -X GET "https://api.maiagent.com/api/v1/messages/" \
-  -H "Authorization: Api-Key YOUR_API_KEY"\
-```
-
-```javascript
-const axios = require('axios');
-
-// 準備請求設定
-const config = {
-  headers: {
-    'Authorization': 'Api-Key YOUR_API_KEY'
-  }
-};
-
-axios.get("https://api.maiagent.com/api/v1/messages/", config)
-  .then(response => {
-    console.log('回應:', response.data);
-  })
-  .catch(error => {
-    console.error('錯誤:', error.response?.data || error.message);
-  });
-```
-
-```python
-import requests
-
-url = "https://api.maiagent.com/api/v1/messages/"
-headers = {
-    "Authorization": "Api-Key YOUR_API_KEY"
-}
-
-response = requests.get(url, headers=headers)
-try:
-    print("回應:", response.json())
-except Exception as e:
-    print("錯誤:", e)
-```
-
-```php
-<?php
-require 'vendor/autoload.php';
-
-$client = new GuzzleHttpClient();
-
-try {
-    $response = $client->get("https://api.maiagent.com/api/v1/messages/", [
-        'headers' => [
-            'Authorization' => 'Api-Key YOUR_API_KEY'
-        ]
-    ]);
-    $data = json_decode($response->getBody(), true);
-    print_r($data);
-} catch (Exception $e) {
-    echo '錯誤: ' . $e->getMessage();
-}
-?>
-```
-
 
 ### 參數
 
 | 參數名稱 | 必填 | 類型 | 說明 |
 | --- | --- | --- | --- |
-| conversation | 否 | string |  |
-| cursor | 否 | string | The pagination cursor value. |
+| chatbotPk | 是 | string | A UUID string identifying this Chatbot ID |
+| page | 否 | integer | A page number within the paginated result set. |
 | pageSize | 否 | integer | Number of results to return per page. |
+
+### 程式碼範例
+
+```shell
+# 呼叫 API
+curl -X GET "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/" \
+  -H "Authorization: Api-Key YOUR_API_KEY"\
+```
+
+```javascript
+const axios = require('axios');
+
+// 準備請求設定
+const config = {
+  headers: {
+    'Authorization': 'Api-Key YOUR_API_KEY'
+  }
+};
+
+axios.get("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/", config)
+  .then(response => {
+    console.log('回應:', response.data);
+  })
+  .catch(error => {
+    console.error('錯誤:', error.response?.data || error.message);
+  });
+```
+
+```python
+import requests
+
+url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/"
+headers = {
+    "Authorization": "Api-Key YOUR_API_KEY"
+}
+
+response = requests.get(url, headers=headers)
+try:
+    print("回應:", response.json())
+except Exception as e:
+    print("錯誤:", e)
+```
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+$client = new GuzzleHttpClient();
+
+try {
+    $response = $client->get("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/", [
+        'headers' => [
+            'Authorization' => 'Api-Key YOUR_API_KEY'
+        ]
+    ]);
+    $data = json_decode($response->getBody(), true);
+    print_r($data);
+} catch (Exception $e) {
+    echo '錯誤: ' . $e->getMessage();
+}
+?>
+```
+
 
 ### 回應內容
 
@@ -966,56 +721,19 @@ try {
   "results": [
     {
       "id": "550e8400-e29b-41d4-a716-446655440000",
-      "conversation": "example_string",
-      "sender": {
+      "filename": "example.pdf",
+      "file": "example.pdf",
+      "fileType": "example_string",
+      "size": 0,
+      "status": null,
+      "chatbotFileContent": "example_string",
+      "parser": {
         "id": "550e8400-e29b-41d4-a716-446655440000",
         "name": "客服助理",
-        "avatar": "example_string"
+        "provider": "example_string",
+        "priority": 0
       },
-      "type": "example_string",
-      "content": "example_string",
-      "feedback": null,
-      "createdAt": "2024-02-18T13:45:30.000Z",
-      "attachments": [
-        {
-          "id": "550e8400-e29b-41d4-a716-446655440000",
-          "type": null,
-          "filename": "example.pdf",
-          "file": "example.pdf"
-        }
-      ],
-      "citations": [
-        {
-          "id": "550e8400-e29b-41d4-a716-446655440000",
-          "filename": "example.pdf",
-          "file": "example.pdf",
-          "fileType": "example_string",
-          "size": 0,
-          "status": null,
-          "chatbotFileContent": "example_string",
-          "parser": {
-            "id": "550e8400-e29b-41d4-a716-446655440000",
-            "name": "客服助理",
-            "provider": "example_string",
-            "priority": 0
-          },
-          "createdAt": "2024-02-18T13:45:30.000Z"
-        }
-      ],
-      "citationNodes": [
-        {
-          "chatbotTextNode": {
-            "id": "550e8400-e29b-41d4-a716-446655440000",
-            "charactersCount": 0,
-            "hitsCount": 42,
-            "text": "example_string",
-            "updatedAt": "example_string",
-            "filename": "example.pdf"
-          },
-          "score": 0,
-          "displayScore": "example_string"
-        }
-      ]
+      "createdAt": "2024-02-18T13:45:30.000Z"
     }
   ]
 }
@@ -1023,25 +741,50 @@ try {
 
 ---
 
-## 發送訊息
+## 上傳新文件到知識庫
 
 ```
-POST /api/v1/messages/
+POST /api/v1/chatbots/{chatbotPk}/files/
+```
+
+### 參數
+
+| 參數名稱 | 必填 | 類型 | 說明 |
+| --- | --- | --- | --- |
+| chatbotPk | 是 | string | A UUID string identifying this Chatbot ID |
+
+### 請求內容
+
+```json
+{
+  "files": [
+    {
+      "file": "media/chatbots/chatbot-file/example.pdf",
+      "filename": "example.pdf",
+      "parser": ""
+    }
+  ]
+}
 ```
 
 ### 程式碼範例
 
 ```shell
 # 呼叫 API
-curl -X POST "https://api.maiagent.com/api/v1/messages/" \
-  -H "Authorization: Api-Key YOUR_API_KEY"\
+curl -X POST "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/" \
+  -H "Authorization: Api-Key YOUR_API_KEY"\ \
+  -H "Content-Type: application/json" \
+  -d '{\n  "filename": "example.pdf",\n  "file": "https://example.com/path/to/file.pdf"\n}'
 ```
 
 ```javascript
 const axios = require('axios');
 
 // 準備請求資料
-const data = {}; 
+const data = {
+  "filename": "example.pdf",
+  "file": "https://example.com/path/to/file.pdf"
+}; 
 
 // 準備請求設定
 const config = {
@@ -1051,7 +794,7 @@ const config = {
   }
 };
 
-axios.post("https://api.maiagent.com/api/v1/messages/", data, config)
+axios.post("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/", data, config)
   .then(response => {
     console.log('回應:', response.data);
   })
@@ -1064,12 +807,15 @@ axios.post("https://api.maiagent.com/api/v1/messages/", data, config)
 import requests
 import json
 
-url = "https://api.maiagent.com/api/v1/messages/"
+url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/"
 headers = {
     "Authorization": "Api-Key YOUR_API_KEY",
     "Content-Type": "application/json"
 }
-data = {}
+data = {
+  "filename": "example.pdf",
+  "file": "https://example.com/path/to/file.pdf"
+}
 
 response = requests.post(url, json=data, headers=headers)
 try:
@@ -1085,12 +831,15 @@ require 'vendor/autoload.php';
 $client = new GuzzleHttpClient();
 
 try {
-    $response = $client->post("https://api.maiagent.com/api/v1/messages/", [
+    $response = $client->post("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/", [
         'headers' => [
             'Authorization' => 'Api-Key YOUR_API_KEY',
             'Content-Type' => 'application/json'
         ],
-        'json' => {}
+        'json' => {
+  "filename": "example.pdf",
+  "file": "https://example.com/path/to/file.pdf"
+}
     ]);
     $data = json_decode($response->getBody(), true);
     print_r($data);
@@ -1101,88 +850,11 @@ try {
 ```
 
 
-### 請求內容
-
-```json
-{
-  "id": "550e8400-e29b-41d4-a716-446655440000",
-  "conversation": "example_string",
-  "sender": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "name": "客服助理",
-    "avatar": "example_string"
-  },
-  "type": "example_string",
-  "content": "example_string",
-  "feedback": null,
-  "createdAt": "2024-02-18T13:45:30.000Z",
-  "attachments": [
-    {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "type": null,
-      "filename": "example.pdf",
-      "file": "example.pdf"
-    }
-  ],
-  "citations": [
-    {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "filename": "example.pdf",
-      "file": "example.pdf",
-      "fileType": "example_string",
-      "size": 0,
-      "status": null,
-      "chatbotFileContent": "example_string",
-      "parser": {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "name": "客服助理",
-        "provider": "example_string",
-        "priority": 0
-      },
-      "createdAt": "2024-02-18T13:45:30.000Z"
-    }
-  ],
-  "citationNodes": [
-    {
-      "chatbotTextNode": {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "charactersCount": 0,
-        "hitsCount": 42,
-        "text": "example_string",
-        "updatedAt": "example_string",
-        "filename": "example.pdf"
-      },
-      "score": 0,
-      "displayScore": "example_string"
-    }
-  ]
-}
-```
-
 ### 回應內容
 
 ```json
 {
-  "id": "550e8400-e29b-41d4-a716-446655440000",
-  "conversation": "example_string",
-  "sender": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "name": "客服助理",
-    "avatar": "example_string"
-  },
-  "type": "example_string",
-  "content": "example_string",
-  "feedback": null,
-  "createdAt": "2024-02-18T13:45:30.000Z",
-  "attachments": [
-    {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "type": null,
-      "filename": "example.pdf",
-      "file": "example.pdf"
-    }
-  ],
-  "citations": [
+  "files": [
     {
       "id": "550e8400-e29b-41d4-a716-446655440000",
       "filename": "example.pdf",
@@ -1191,27 +863,8 @@ try {
       "size": 0,
       "status": null,
       "chatbotFileContent": "example_string",
-      "parser": {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "name": "客服助理",
-        "provider": "example_string",
-        "priority": 0
-      },
+      "parser": "example_string",
       "createdAt": "2024-02-18T13:45:30.000Z"
-    }
-  ],
-  "citationNodes": [
-    {
-      "chatbotTextNode": {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "charactersCount": 0,
-        "hitsCount": 42,
-        "text": "example_string",
-        "updatedAt": "example_string",
-        "filename": "example.pdf"
-      },
-      "score": 0,
-      "displayScore": "example_string"
     }
   ]
 }
@@ -1219,17 +872,24 @@ try {
 
 ---
 
-## 取得特定訊息
+## 取得知識庫內特定文件
 
 ```
-GET /api/v1/messages/{id}/
+GET /api/v1/chatbots/{chatbotPk}/files/{id}/
 ```
+
+### 參數
+
+| 參數名稱 | 必填 | 類型 | 說明 |
+| --- | --- | --- | --- |
+| chatbotPk | 是 | string | A UUID string identifying this Chatbot ID |
+| id | 是 | string | A UUID string identifying this Chatbot 檔案. |
 
 ### 程式碼範例
 
 ```shell
 # 呼叫 API
-curl -X GET "https://api.maiagent.com/api/v1/messages/550e8400-e29b-41d4-a716-446655440000/" \
+curl -X GET "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/550e8400-e29b-41d4-a716-446655440000/" \
   -H "Authorization: Api-Key YOUR_API_KEY"\
 ```
 
@@ -1243,7 +903,7 @@ const config = {
   }
 };
 
-axios.get("https://api.maiagent.com/api/v1/messages/550e8400-e29b-41d4-a716-446655440000/", config)
+axios.get("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/550e8400-e29b-41d4-a716-446655440000/", config)
   .then(response => {
     console.log('回應:', response.data);
   })
@@ -1255,7 +915,7 @@ axios.get("https://api.maiagent.com/api/v1/messages/550e8400-e29b-41d4-a716-4466
 ```python
 import requests
 
-url = "https://api.maiagent.com/api/v1/messages/550e8400-e29b-41d4-a716-446655440000/"
+url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/550e8400-e29b-41d4-a716-446655440000/"
 headers = {
     "Authorization": "Api-Key YOUR_API_KEY"
 }
@@ -1274,7 +934,7 @@ require 'vendor/autoload.php';
 $client = new GuzzleHttpClient();
 
 try {
-    $response = $client->get("https://api.maiagent.com/api/v1/messages/550e8400-e29b-41d4-a716-446655440000/", [
+    $response = $client->get("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/550e8400-e29b-41d4-a716-446655440000/", [
         'headers' => [
             'Authorization' => 'Api-Key YOUR_API_KEY'
         ]
@@ -1288,83 +948,171 @@ try {
 ```
 
 
-### 參數
-
-| 參數名稱 | 必填 | 類型 | 說明 |
-| --- | --- | --- | --- |
-| id | 是 | string | A UUID string identifying this 訊息. |
-
 ### 回應內容
 
 ```json
 {
   "id": "550e8400-e29b-41d4-a716-446655440000",
-  "conversation": "example_string",
-  "sender": {
+  "filename": "example.pdf",
+  "file": "example.pdf",
+  "fileType": "example_string",
+  "size": 0,
+  "status": null,
+  "chatbotFileContent": "example_string",
+  "parser": {
     "id": "550e8400-e29b-41d4-a716-446655440000",
     "name": "客服助理",
-    "avatar": "example_string"
+    "provider": "example_string",
+    "priority": 0
   },
-  "type": "example_string",
-  "content": "example_string",
-  "feedback": null,
-  "createdAt": "2024-02-18T13:45:30.000Z",
-  "attachments": [
-    {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "type": null,
-      "filename": "example.pdf",
-      "file": "example.pdf"
-    }
-  ],
-  "citations": [
-    {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "filename": "example.pdf",
-      "file": "example.pdf",
-      "fileType": "example_string",
-      "size": 0,
-      "status": null,
-      "chatbotFileContent": "example_string",
-      "parser": {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "name": "客服助理",
-        "provider": "example_string",
-        "priority": 0
-      },
-      "createdAt": "2024-02-18T13:45:30.000Z"
-    }
-  ],
-  "citationNodes": [
-    {
-      "chatbotTextNode": {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "charactersCount": 0,
-        "hitsCount": 42,
-        "text": "example_string",
-        "updatedAt": "example_string",
-        "filename": "example.pdf"
-      },
-      "score": 0,
-      "displayScore": "example_string"
-    }
-  ]
+  "createdAt": "2024-02-18T13:45:30.000Z"
 }
 ```
 
 ---
 
-## 發送外發訊息
+## 更新知識庫內特定文件
 
 ```
-POST /api/v1/messages/outgoing/
+PUT /api/v1/chatbots/{chatbotPk}/files/{id}/
+```
+
+### 參數
+
+| 參數名稱 | 必填 | 類型 | 說明 |
+| --- | --- | --- | --- |
+| chatbotPk | 是 | string | A UUID string identifying this Chatbot ID |
+| id | 是 | string | A UUID string identifying this Chatbot 檔案. |
+
+### 請求內容
+
+```json
+{
+  "file": "media/chatbots/chatbot-file/example.pdf",
+  "filename": "example.pdf",
+  "parser": ""
+}
 ```
 
 ### 程式碼範例
 
 ```shell
 # 呼叫 API
-curl -X POST "https://api.maiagent.com/api/v1/messages/outgoing/" \
+curl -X PUT "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/550e8400-e29b-41d4-a716-446655440000/" \
+  -H "Authorization: Api-Key YOUR_API_KEY"\ \
+  -H "Content-Type: application/json" \
+  -d '{\n  "filename": "example.pdf",\n  "file": "https://example.com/path/to/file.pdf"\n}'
+```
+
+```javascript
+const axios = require('axios');
+
+// 準備請求資料
+const data = {
+  "filename": "example.pdf",
+  "file": "https://example.com/path/to/file.pdf"
+}; 
+
+// 準備請求設定
+const config = {
+  headers: {
+    'Authorization': 'Api-Key YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  }
+};
+
+axios.put("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/550e8400-e29b-41d4-a716-446655440000/", data, config)
+  .then(response => {
+    console.log('回應:', response.data);
+  })
+  .catch(error => {
+    console.error('錯誤:', error.response?.data || error.message);
+  });
+```
+
+```python
+import requests
+import json
+
+url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/550e8400-e29b-41d4-a716-446655440000/"
+headers = {
+    "Authorization": "Api-Key YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+data = {
+  "filename": "example.pdf",
+  "file": "https://example.com/path/to/file.pdf"
+}
+
+response = requests.put(url, json=data, headers=headers)
+try:
+    print("回應:", response.json())
+except Exception as e:
+    print("錯誤:", e)
+```
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+$client = new GuzzleHttpClient();
+
+try {
+    $response = $client->put("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/550e8400-e29b-41d4-a716-446655440000/", [
+        'headers' => [
+            'Authorization' => 'Api-Key YOUR_API_KEY',
+            'Content-Type' => 'application/json'
+        ],
+        'json' => {
+  "filename": "example.pdf",
+  "file": "https://example.com/path/to/file.pdf"
+}
+    ]);
+    $data = json_decode($response->getBody(), true);
+    print_r($data);
+} catch (Exception $e) {
+    echo '錯誤: ' . $e->getMessage();
+}
+?>
+```
+
+
+### 回應內容
+
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "filename": "example.pdf",
+  "file": "example.pdf",
+  "fileType": "example_string",
+  "size": 0,
+  "status": null,
+  "chatbotFileContent": "example_string",
+  "parser": "example_string",
+  "createdAt": "2024-02-18T13:45:30.000Z"
+}
+```
+
+---
+
+## 刪除知識庫內特定文件
+
+```
+DELETE /api/v1/chatbots/{chatbotPk}/files/{id}/
+```
+
+### 參數
+
+| 參數名稱 | 必填 | 類型 | 說明 |
+| --- | --- | --- | --- |
+| chatbotPk | 是 | string | A UUID string identifying this Chatbot ID |
+| id | 是 | string | A UUID string identifying this Chatbot 檔案. |
+
+### 程式碼範例
+
+```shell
+# 呼叫 API
+curl -X DELETE "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/550e8400-e29b-41d4-a716-446655440000/" \
   -H "Authorization: Api-Key YOUR_API_KEY"\
 ```
 
@@ -1382,7 +1130,7 @@ const config = {
   }
 };
 
-axios.post("https://api.maiagent.com/api/v1/messages/outgoing/", data, config)
+axios.delete("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/550e8400-e29b-41d4-a716-446655440000/", data, config)
   .then(response => {
     console.log('回應:', response.data);
   })
@@ -1395,7 +1143,238 @@ axios.post("https://api.maiagent.com/api/v1/messages/outgoing/", data, config)
 import requests
 import json
 
-url = "https://api.maiagent.com/api/v1/messages/outgoing/"
+url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/550e8400-e29b-41d4-a716-446655440000/"
+headers = {
+    "Authorization": "Api-Key YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+data = {}
+
+response = requests.delete(url, json=data, headers=headers)
+try:
+    print("回應:", response.json())
+except Exception as e:
+    print("錯誤:", e)
+```
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+$client = new GuzzleHttpClient();
+
+try {
+    $response = $client->delete("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/550e8400-e29b-41d4-a716-446655440000/", [
+        'headers' => [
+            'Authorization' => 'Api-Key YOUR_API_KEY',
+            'Content-Type' => 'application/json'
+        ],
+        'json' => {}
+    ]);
+    $data = json_decode($response->getBody(), true);
+    print_r($data);
+} catch (Exception $e) {
+    echo '錯誤: ' . $e->getMessage();
+}
+?>
+```
+
+
+### 狀態碼
+
+| 狀態碼 | 說明 |
+| --- | --- |
+| 204 | No response body |
+
+---
+
+## 批次刪除知識庫文件
+
+```
+POST /api/v1/chatbots/{chatbotPk}/files/batch-delete/
+```
+
+### 參數
+
+| 參數名稱 | 必填 | 類型 | 說明 |
+| --- | --- | --- | --- |
+| chatbotPk | 是 | string | A UUID string identifying this Chatbot ID |
+
+### 請求內容
+
+```json
+{
+  "ids": [
+    "file_id_1",
+    "file_id_2",
+    "file_id_3"
+  ]
+}
+```
+
+### 程式碼範例
+
+```shell
+# 呼叫 API
+curl -X POST "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/batch-delete/" \
+  -H "Authorization: Api-Key YOUR_API_KEY"\ \
+  -H "Content-Type: application/json" \
+  -d '{\n  "filename": "example.pdf",\n  "file": "https://example.com/path/to/file.pdf"\n}'
+```
+
+```javascript
+const axios = require('axios');
+
+// 準備請求資料
+const data = {
+  "filename": "example.pdf",
+  "file": "https://example.com/path/to/file.pdf"
+}; 
+
+// 準備請求設定
+const config = {
+  headers: {
+    'Authorization': 'Api-Key YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  }
+};
+
+axios.post("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/batch-delete/", data, config)
+  .then(response => {
+    console.log('回應:', response.data);
+  })
+  .catch(error => {
+    console.error('錯誤:', error.response?.data || error.message);
+  });
+```
+
+```python
+import requests
+import json
+
+url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/batch-delete/"
+headers = {
+    "Authorization": "Api-Key YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+data = {
+  "filename": "example.pdf",
+  "file": "https://example.com/path/to/file.pdf"
+}
+
+response = requests.post(url, json=data, headers=headers)
+try:
+    print("回應:", response.json())
+except Exception as e:
+    print("錯誤:", e)
+```
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+$client = new GuzzleHttpClient();
+
+try {
+    $response = $client->post("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/files/batch-delete/", [
+        'headers' => [
+            'Authorization' => 'Api-Key YOUR_API_KEY',
+            'Content-Type' => 'application/json'
+        ],
+        'json' => {
+  "filename": "example.pdf",
+  "file": "https://example.com/path/to/file.pdf"
+}
+    ]);
+    $data = json_decode($response->getBody(), true);
+    print_r($data);
+} catch (Exception $e) {
+    echo '錯誤: ' . $e->getMessage();
+}
+?>
+```
+
+
+### 回應內容
+
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "filename": "example.pdf",
+  "file": "example.pdf",
+  "fileType": "example_string",
+  "size": 0,
+  "status": null,
+  "chatbotFileContent": "example_string",
+  "parser": {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "name": "客服助理",
+    "provider": "example_string",
+    "priority": 0
+  },
+  "createdAt": "2024-02-18T13:45:30.000Z"
+}
+```
+
+---
+
+## 搜尋測試
+
+```
+POST /api/v1/chatbots/{id}/search/
+```
+
+### 參數
+
+| 參數名稱 | 必填 | 類型 | 說明 |
+| --- | --- | --- | --- |
+| id | 是 | string | A UUID string identifying this chatbot. |
+
+### 請求內容
+
+```json
+{
+  "query": "搜尋關鍵字",
+  "topK": 10
+}
+```
+
+### 程式碼範例
+
+```shell
+# 呼叫 API
+curl -X POST "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/search/" \
+  -H "Authorization: Api-Key YOUR_API_KEY"\
+```
+
+```javascript
+const axios = require('axios');
+
+// 準備請求資料
+const data = {}; 
+
+// 準備請求設定
+const config = {
+  headers: {
+    'Authorization': 'Api-Key YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  }
+};
+
+axios.post("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/search/", data, config)
+  .then(response => {
+    console.log('回應:', response.data);
+  })
+  .catch(error => {
+    console.error('錯誤:', error.response?.data || error.message);
+  });
+```
+
+```python
+import requests
+import json
+
+url = "https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/search/"
 headers = {
     "Authorization": "Api-Key YOUR_API_KEY",
     "Content-Type": "application/json"
@@ -1416,7 +1395,7 @@ require 'vendor/autoload.php';
 $client = new GuzzleHttpClient();
 
 try {
-    $response = $client->post("https://api.maiagent.com/api/v1/messages/outgoing/", [
+    $response = $client->post("https://api.maiagent.com/api/v1/chatbots/550e8400-e29b-41d4-a716-446655440000/search/", [
         'headers' => [
             'Authorization' => 'Api-Key YOUR_API_KEY',
             'Content-Type' => 'application/json'
@@ -1432,119 +1411,31 @@ try {
 ```
 
 
-### 請求內容
-
-```json
-{
-  "id": "550e8400-e29b-41d4-a716-446655440000",
-  "conversation": "example_string",
-  "sender": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "name": "客服助理",
-    "avatar": "example_string"
-  },
-  "type": "example_string",
-  "content": "example_string",
-  "feedback": null,
-  "createdAt": "2024-02-18T13:45:30.000Z",
-  "attachments": [
-    {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "type": null,
-      "filename": "example.pdf",
-      "file": "example.pdf"
-    }
-  ],
-  "citations": [
-    {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "filename": "example.pdf",
-      "file": "example.pdf",
-      "fileType": "example_string",
-      "size": 0,
-      "status": null,
-      "chatbotFileContent": "example_string",
-      "parser": {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "name": "客服助理",
-        "provider": "example_string",
-        "priority": 0
-      },
-      "createdAt": "2024-02-18T13:45:30.000Z"
-    }
-  ],
-  "citationNodes": [
-    {
-      "chatbotTextNode": {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "charactersCount": 0,
-        "hitsCount": 42,
-        "text": "example_string",
-        "updatedAt": "example_string",
-        "filename": "example.pdf"
-      },
-      "score": 0,
-      "displayScore": "example_string"
-    }
-  ]
-}
-```
-
 ### 回應內容
 
 ```json
 {
   "id": "550e8400-e29b-41d4-a716-446655440000",
-  "conversation": "example_string",
-  "sender": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "name": "客服助理",
-    "avatar": "example_string"
-  },
-  "type": "example_string",
-  "content": "example_string",
-  "feedback": null,
-  "createdAt": "2024-02-18T13:45:30.000Z",
-  "attachments": [
-    {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "type": null,
-      "filename": "example.pdf",
-      "file": "example.pdf"
-    }
-  ],
-  "citations": [
-    {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "filename": "example.pdf",
-      "file": "example.pdf",
-      "fileType": "example_string",
-      "size": 0,
-      "status": null,
-      "chatbotFileContent": "example_string",
-      "parser": {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "name": "客服助理",
-        "provider": "example_string",
-        "priority": 0
-      },
-      "createdAt": "2024-02-18T13:45:30.000Z"
-    }
-  ],
-  "citationNodes": [
-    {
-      "chatbotTextNode": {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "charactersCount": 0,
-        "hitsCount": 42,
-        "text": "example_string",
-        "updatedAt": "example_string",
-        "filename": "example.pdf"
-      },
-      "score": 0,
-      "displayScore": "example_string"
-    }
-  ]
+  "workflow": "example_string",
+  "name": "客服助理",
+  "largeLanguageModel": "example_string",
+  "rag": "example_string",
+  "embeddingModel": "example_string",
+  "rerankerModel": "example_string",
+  "instructions": "example_string",
+  "webhookUrl": "example_string",
+  "apiWebChatId": "example_string",
+  "updatedAt": "example_string",
+  "organization": "example_string",
+  "builtInWorkflow": "example_string",
+  "replyMode": null,
+  "template": "example_string",
+  "unanswerableTemplate": "example_string",
+  "totalWordsCount": 0,
+  "enableChineseConversion": false,
+  "outputFormat": null,
+  "databaseUrl": "example_string",
+  "databaseType": "example_string"
 }
 ```
 
